@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="libs/fontawesome/css/fa-all.min.css" />
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="css/popup.min.css"/>
+    <title>dor1an 2FA GPT2.1</title>
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <style>
+        body { color: #333; font-family: arial, sans-serif; }
+        body a { color: #777; }
+        #qr_code { display: block; }
+        #url { display: block; width: 32px; }
+        #not_available { display: none; width: 20px; }
+    </style>
+        <!-- JavaScript and HTML must be in separate files for security. 
+    -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.qrcode.js"></script> 
+    <script src="js/qrcode.js"></script>
+    <script src="js/bmp_lib.js"></script>
+    <script src="js/qrBase64.js"></script>
+</head>
+
+<body class="p-1">
+    <div id="qr_code"></div>
+<!--
+    <p id="url"/p>
+-->
+    <center>
+        <img src="dor1an_2FA_logo.png" alt="dor1an 2FA GPT2" width="155" height="46">
+    </center>
+    <div id="not_available">Not Available for this page.</div>
+    <div class="btn-group w-1">
+        <button class="btn btn-success btn-camera" enabled hidden>
+            <i class="fa fa-video"></i>
+            <span data-loc=""></span>
+        </button>
+        <button class="btn btn-info btn-image"  enabled hidden>
+            <i class="fa fa-image"></i>
+            <span data-loc="Image"></span>
+        </button>
+        <button class="btn btn-primary btn-tab"  enabled hidden>
+            <i class="fa fa-window-restore"></i>
+            <span data-loc="Tab"></span>
+        </button>
+    </div>
+
+<!-- 
+    Camera screen 
+-->
+    <div class="preview my-1">
+        <div class="d-none img-preview"></div>
+        <video class="d-none video-preview"></video>
+    </div>
+    <script type="module" src="js/common.js"></script>
+    <script type="module" src="js/popup.js"></script>
+</body>
+</html>
