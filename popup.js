@@ -1,4 +1,7 @@
-import QrScanner from "../libs/qr-scanner/qr-scanner.min.js";
+// This is popup.js file
+//
+
+import QrScanner from "../libs/qr-scanner.min.js";
 
 class PopupPage {
     constructor() {
@@ -6,14 +9,14 @@ class PopupPage {
         this.btnVideo = document.querySelector(".btn-camera");
     }
     async initialize() {
-        QrScanner.WORKER_PATH = "./../libs/qr-scanner/qr-scanner-worker.min.js";
+        QrScanner.WORKER_PATH = "./../libs/qr-scanner-worker.min.js";
         //document.querySelector(".btn-image").addEventListener("click", () => this.onImageButtonClick());
         //document.querySelector(".btn-tab").addEventListener("click", () => this.onTabButtonClick());
         const hasCamera = await QrScanner.hasCamera();
         if (hasCamera) {
             this.btnVideo.disabled = false;
             this.btnVideo.addEventListener("click", () => this.onVideoButtonClick());
-// CEB: sart the camera
+// CEB: start the camera
 
             this.btnVideo.click();
         }
@@ -76,16 +79,16 @@ class PopupPage {
             // Send mfaCode
             chrome.runtime.sendMessage({ mfaCode: result });
 
-            console.log('no es phishing!!!');
-            console.log('voy a cerrar la ventana');
+            console.log('It is not phishing!!!');
+            console.log('I am about to close the window');
             setTimeout(function () {
                 open(location, '_self').close();
-                console.log('ventana cerrada');
+                console.log('window closed');
 
                 chrome.tabs.query(
                     { currentWindow: true, active: true },
                     function (tabs) {
-                        console.log("Enviando mensaje otherAction a tab id:", tabs[0].id, "código: ", result);
+                        console.log("Sending otherAction message to tab id:", tabs[0].id, "code: ", result);
                       // Send message to the content script
                       chrome.scripting.executeScript({
                         target: { tabId: tabs[0].id },
@@ -119,17 +122,21 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       size = data.size;
     }
     if (/^http(s)?:\/\//i.test(originatingTabUrl)) {
-      $('#qr_code').empty().qrcode({ width: size, height: size, text: "website;" + originatingTabUrl });
-      $('#url').width(size).text(originatingTabUrl);
+      // Extract hostname from the URL
+      const url = new URL(originatingTabUrl);
+      const hostname = url.hostname;
+
+      $('#qr_code').empty().qrcode({ width: size, height: size, text: hostname });
+      $('#url').width(size).text(hostname);
       $('#not_available').hide();
       $('#qr_code canvas').click(function () {
         chrome.tabs.create({
-          url: qrBase64(originatingTabUrl, { width: size, height: size })
+          url: qrBase64(hostname, { width: size, height: size })
         });
       });
 
       if (typeof _gaq !== 'undefined') {
-        _gaq.push(['_trackEvent', 'Top', originatingTabUrl]);
+        _gaq.push(['_trackEvent', 'Top', hostname]);
       }
     } else {
       $('#qr_code').hide();
@@ -139,3 +146,4 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     }
   });
 });
+

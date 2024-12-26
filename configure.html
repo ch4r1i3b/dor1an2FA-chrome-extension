@@ -8,19 +8,36 @@
     <link rel="stylesheet" href="libs/bootstrap.min.css">
     <link rel="stylesheet" href="css/popup.min.css" />
 
-    <title>dor1an 2FA configuration</title>
+    <title>dor1an Configuration</title>
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <style>
-        body{color: #333; font-family: arial, sans-serif; }
-        body a{color: #777;} 
-        #qr_code{display:block;}
-        #url{display:block; width: 256px;}
-        #not_available{display:block; width: 200px;}
+        body {
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
     </style>
-
-    
 </head>
-    <body class="p-1">
-    Hello world!
-    </body>
+
+<body class="p-3">
+    <!-- dor1an Logo -->
+    <div class="logo">
+        <img src="./dor1an_2FA_logo.png" alt="dor1an Logo" width="150" />
+    </div>
+
+    <!-- Fancy Buttons -->
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-custom">Setup</button>
+        <button type="button" class="btn btn-info btn-custom">About</button>
+        <button type="button" class="btn btn-danger btn-custom">Quit</button>
+    </div>
+</body>
 </html>
