@@ -27,7 +27,7 @@
   ],
   "web_accessible_resources": [
     "popup.html",
-    "js/popup.js"
+    "popup.js"
   ],
   "browser_action": {
     "default_popup": "configure.html"

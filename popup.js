@@ -2,7 +2,7 @@
 // This is popup.js file
 //
 
-import QrScanner from "../libs/qr-scanner.min.js";
+import QrScanner from "./libs/qr-scanner/qr-scanner.min.js";
 
 class PopupPage {
     constructor() {
@@ -10,14 +10,14 @@ class PopupPage {
         this.btnVideo = document.querySelector(".btn-camera");
     }
     async initialize() {
-        QrScanner.WORKER_PATH = "./../libs/qr-scanner-worker.min.js";
+        QrScanner.WORKER_PATH = "./libs/qr-scanner/qr-scanner-worker.min.js";
         //document.querySelector(".btn-image").addEventListener("click", () => this.onImageButtonClick());
         //document.querySelector(".btn-tab").addEventListener("click", () => this.onTabButtonClick());
         const hasCamera = await QrScanner.hasCamera();
         if (hasCamera) {
             this.btnVideo.disabled = false;
             this.btnVideo.addEventListener("click", () => this.onVideoButtonClick());
-// CEB: start the camera
+// CEB: sart the camera
 
             this.btnVideo.click();
         }
@@ -80,17 +80,16 @@ class PopupPage {
             // Send mfaCode
             chrome.runtime.sendMessage({ mfaCode: result });
 
-            console.log('It is not phishing!!!');
-            console.log('I am about to close the window');
+            console.log('no es phishing!!!');
+            console.log('voy a cerrar la ventana');
             setTimeout(function () {
-// Here I close the window
-              open(location, '_self').close();
-                console.log('window closed');
+                open(location, '_self').close();
+                console.log('ventana cerrada');
 
                 chrome.tabs.query(
                     { currentWindow: true, active: true },
                     function (tabs) {
-                        console.log("Sending otherAction message to tab id:", tabs[0].id, "code: ", result);
+                        console.log("Enviando mensaje otherAction a tab id:", tabs[0].id, "código: ", result);
                       // Send message to the content script
                       chrome.scripting.executeScript({
                         target: { tabId: tabs[0].id },
@@ -148,4 +147,3 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     }
   });
 });
-
