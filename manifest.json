@@ -1,8 +1,7 @@
 {
   "manifest_version": 2,
   "name": "dor1an 2FA",
-  "version": "0.1.1",
-  "description": "A Chrome extension for dor1an2FA",
+  "version": "1.0",
   "permissions": [
     "tabs",
     "http://*/*",
@@ -31,7 +30,7 @@
     "js/popup.js"
   ],
   "browser_action": {
-    "default_popup": "setup.html"
+    "default_popup": "configure.html"
   },
   "content_security_policy": "script-src 'self'; object-src 'self';"
 }

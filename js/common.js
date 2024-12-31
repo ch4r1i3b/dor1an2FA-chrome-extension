@@ -1,7 +1,4 @@
-﻿// This is common.js file
-
-
-String.prototype.formatUnicorn = String.prototype.formatUnicorn ||
+﻿String.prototype.formatUnicorn = String.prototype.formatUnicorn ||
     function () {
         "use strict";
         var str = this.toString();
