@@ -22,10 +22,10 @@ dor1an2FA has all the advantages of Matt Rubin's Authenticator, like helping to 
 - Requester hostname check in order to minimize phishing attacks.
 - Browser extension for 6-digit password token autofill.
 
-<img src="fastlane/screenshots/en-US/dor1an2FA_list.png" width="250" alt="Screenshot of dor1an2FA token list" /> &nbsp;
-<img src="fastlane/screenshots/en-US/dor1an2FA_front_camera.png" width="250" alt="Screenshot of dor1an2FA hostname QR Code scanner" /> &nbsp;
-<img src="fastlane/screenshots/en-US/dor1an2FA_QR_code.png" width="250" alt="Screenshot of dor1an2FA QR Code" />
-<img src="fastlane/screenshots/en-US/dor1an2FA_extension.png" width="250" alt="Screenshot of dor1an2FA Extension" />
+<img src="dor1an2FA_list.png" width="250" alt="Screenshot of dor1an2FA token list" /> &nbsp;
+<img src="dor1an2FA_front_camera.png" width="250" alt="Screenshot of dor1an2FA hostname QR Code scanner" /> &nbsp;
+<img src="dor1an2FA_QR_code.png" width="250" alt="Screenshot of dor1an2FA QR Code" />
+<img src="dor1an2FA_extension.png" width="250" alt="Screenshot of dor1an2FA Extension" />
 
 
 ## Getting Started
