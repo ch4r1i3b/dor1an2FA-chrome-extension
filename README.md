@@ -1,5 +1,5 @@
 # dor1an 2FA
-### Two-Factor Authentication Client for iOS.
+### Two-Factor Authentication application.
 
 dor1an2FA is a simple, free, and open source [two-factor authentication](https://en.wikipedia.org/wiki/Two-factor_authentication) app
 based on [Matt Rubin's Authenticator](https://github.com/mattrubin/Authenticator) with a twist.
