@@ -1,5 +1,3 @@
-// This is the fixed content.js file 20250101
-
 (() => {
   const totpKeywords = ["auth", "token", "code", "totp", "6-digit", "otp"];
   let popupTriggered = false;

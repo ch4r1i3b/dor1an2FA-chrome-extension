@@ -1,7 +1,3 @@
-
-// This is popup.js file
-//
-
 import QrScanner from "./libs/qr-scanner/qr-scanner.min.js";
 
 class PopupPage {
@@ -11,17 +7,14 @@ class PopupPage {
     }
     async initialize() {
         QrScanner.WORKER_PATH = "./libs/qr-scanner/qr-scanner-worker.min.js";
-        //document.querySelector(".btn-image").addEventListener("click", () => this.onImageButtonClick());
-        //document.querySelector(".btn-tab").addEventListener("click", () => this.onTabButtonClick());
         const hasCamera = await QrScanner.hasCamera();
         if (hasCamera) {
             this.btnVideo.disabled = false;
             this.btnVideo.addEventListener("click", () => this.onVideoButtonClick());
-// CEB: sart the camera
-
+// CEB: start the camera
             this.btnVideo.click();
         }
-        document.body.loc(); // sacar esto???
+        document.body.loc(); // get rid???
     }
 
     async onVideoButtonClick() {
@@ -69,10 +62,10 @@ class PopupPage {
 
     processResult(result, removeDuplicate) {
         let prefix = result.substring(0, result.indexOf(';'));
-        result = result.substring(result.indexOf(';') + 1); // acá tengo el QR
+        result = result.substring(result.indexOf(';') + 1); // here I have the QR code
 
         if (prefix == "msg") {
-            alert("ALERTA\n\nEl sitio al que está tratando\nde ingresar no está registrado.\n\nPodría tratarse de un ataque de\nPHISHING");
+            alert("ALERT\n\nThe site you are trying\nto log in is not registeredd.\n\nIt could be a \nPHISHING attack.");
             window.close();
         } else {
 
@@ -80,16 +73,16 @@ class PopupPage {
             // Send mfaCode
             chrome.runtime.sendMessage({ mfaCode: result });
 
-            console.log('no es phishing!!!');
-            console.log('voy a cerrar la ventana');
+            console.log('not phishing!!!');
+            console.log('closing the window');
             setTimeout(function () {
                 open(location, '_self').close();
-                console.log('ventana cerrada');
+                console.log('window closed');
 
                 chrome.tabs.query(
                     { currentWindow: true, active: true },
                     function (tabs) {
-                        console.log("Enviando mensaje otherAction a tab id:", tabs[0].id, "código: ", result);
+                        console.log("Sending otherAction message to tab id:", tabs[0].id, "code: ", result);
                       // Send message to the content script
                       chrome.scripting.executeScript({
                         target: { tabId: tabs[0].id },

@@ -1,65 +1,30 @@
 # dor1an 2FA
 ### Two-Factor Authentication application.
 
-dor1an2FA is a simple, free, and open source [two-factor authentication](https://en.wikipedia.org/wiki/Two-factor_authentication) app
-based on [Matt Rubin's Authenticator](https://github.com/mattrubin/Authenticator) with a twist.
-It is combined with a [browser extension](https://github.com/ch4r1i3b/dor1an2FA-chrome-extension) in order to talk each other via screen-camera communication.
+dor1an2FA is a free, open-source [two-factor authentication](https://en.wikipedia.org/wiki/Two-factor_authentication) app designed for simplicity. It uses innovative screen-to-camera communication to automagically autofill the 6-digit [TOTP](https://en.wikipedia.org/wiki/Time-based_one-time_password) token required as the second factor for secure web application logins.
 
-dor1an2FA has all the advantages of Matt Rubin's Authenticator, like helping to keep your online accounts secure by generating unique one-time passwords, which you use in combination with your other passwords to log into supporting websites. 
-
-**Original Matt Rubin's Authenticator features**:
-
-- Easy: Simple setup via QR code, ["otpauth://" URL](https://code.google.com/p/google-authenticator/wiki/KeyUriFormat), or manual entry
-- Secure: All data is stored in encrypted form on the iOS keychain
-- Compatible: Full support for [time-based](https://tools.ietf.org/html/rfc6238) and [counter-based](https://tools.ietf.org/html/rfc4226) one-time passwords as standardized in RFC 4226 and 6238
-- Off the Grid: The app never connects to the internet, and your secret keys never leave your device.
+It has two components: [dor1an2FA iOs mobile app](https://github.com/ch4r1i3b/dor1an2FA-ios) combined with a [dor1an2FA browser extension](https://github.com/ch4r1i3b/dor1an2FA-chrome-extension) in order to talk each other via screen-camera communication.
 
 
 
-**Added dor1an2FA features**:
-- Ability to transfer the generated 6-digit password token to the laptop automatically via screen-camera communication.
-- No need to type the codes.
-- Requester hostname check in order to minimize phishing attacks.
-- Browser extension for 6-digit password token autofill.
+<img src="dor1an2FA_flow.png" width="1000" alt="Flow of dor1an2FA" /> 
 
-<img src="dor1an2FA_list.png" width="250" alt="Screenshot of dor1an2FA token list" /> &nbsp;
-<img src="dor1an2FA_front_camera.png" width="250" alt="Screenshot of dor1an2FA hostname QR Code scanner" /> &nbsp;
-<img src="dor1an2FA_QR_code.png" width="250" alt="Screenshot of dor1an2FA QR Code" />
-<img src="dor1an2FA_extension.png" width="250" alt="Screenshot of dor1an2FA Extension" />
 
 
 ## Getting Started
 
 1. Check out the latest version of the project:
   ```
-  git clone https://github.com/ch4r1i3b/dor1an2FA.git
+  git clone https://github.com/ch4r1i3b/dor1an2FA-chrome-extension.git
   ```
 
-2. In the dor1an2FA directory, check out the project's dependencies:
-  ```
-  cd dor1an2FA
-  git submodule update --init --recursive
-  ```
+2. In Google Chrome go to Extensons
 
-3. Open the `dor1an2FA.xcworkspace` file.
-> If you open the `.xcodeproj` instead, the project will not be able to find its dependencies.
+3. Turn on "Developer mode".
 
-4. Build and run the "dor1an2FA" scheme.
+4. Click "Load Unpacked" and browse the subdirectory where you clonned dor1an2FA-chrome-extension.
 
 
-## Managing Dependencies
-
-dor1an2FA, like Authenticator, uses [Carthage] to manage its dependencies, but it does not currently use Carthage to build those dependencies. The dependency projects are checked out as submodules, are included in `dor1an2FA.xcworkspace`, and are built by Xcode as target dependencies of the Authenticator app.
-
-To check out the dependencies, simply follow the "Getting Started" instructions above.
-
-To update the dependencies, modify the [Cartfile] and run:
-```
-carthage update --no-build --use-submodules
-```
-
-[Carthage]: https://github.com/Carthage/Carthage
-[Cartfile]: Cartfile
 
 ## Usage
 
@@ -69,7 +34,9 @@ carthage update --no-build --use-submodules
 
 2. Connect your iPhone to Xcode.
 
-3. Download and install [dor1an2FA Chrome Extension](https://github.com/ch4r1i3b/dor1an2FA-chrome-extension).
+3. Select your iPhone device as target and run.
+
+4. Download and install [dor1an2FA Chrome Extension](https://github.com/ch4r1i3b/dor1an2FA-chrome-extension).
 
 ### Setup
 
@@ -106,4 +73,6 @@ carthage update --no-build --use-submodules
 This project is made available under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 dor1an2FA is mainly based on Matt Rubin Authenticator under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+
 
