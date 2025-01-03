@@ -1,5 +1,6 @@
 (() => {
   const totpKeywords = ["auth", "token", "code", "totp", "6-digit", "otp"];
+  const submitKeywords = ["submit", "verify", "confirm", "continue", "log in", "sign in"]; // Keywords for submit buttons
   let popupTriggered = false;
 
   // Helper function to determine if an input field matches TOTP criteria
@@ -21,11 +22,45 @@
       );
   };
 
+  // CEB start changes
+  const findInputField = () => {
+      const eligibleFields = Array.from(document.querySelectorAll("input[type='text'], input[type='password']"))
+          .filter(input => isLikelyTOTPField(input) && !input.id.includes("candidate"));
+
+      if (eligibleFields.length > 0) {
+          console.log("Eligible MFA input fields:", eligibleFields);
+          return eligibleFields[0];
+      }
+
+      console.log("No eligible MFA input fields found.");
+      return null;
+  };
+
+  const findSubmitButton = (inputField) => {
+      const possibleButtons = Array.from(document.querySelectorAll("button, input[type='button'], input[type='submit']"))
+          .filter(button => !button.id.includes("candidate"));
+
+      const exactButton = possibleButtons.find(button => button.id === "mfa_submit_button");
+      if (exactButton) {
+          console.log("Exact match for submit button found:", exactButton);
+          return exactButton;
+      }
+
+      const fallbackButton = possibleButtons.find(button => 
+          inputField.closest("form")?.contains(button) ||
+          submitKeywords.some(keyword => button.innerText?.toLowerCase().includes(keyword))
+      );
+
+      console.log("Fallback match for submit button:", fallbackButton);
+      return fallbackButton || null;
+  };
+  // CEB end changes
+
   // Intersection Observer to detect visible TOTP fields
   const handleIntersect = (entries, observer) => {
       entries.forEach((entry) => {
           if (entry.isIntersecting && !popupTriggered) {
-              popupTriggered = true; // Mark as triggered
+              popupTriggered = true;
               console.log("Detected TOTP input field:", entry.target);
 
               chrome.runtime.sendMessage(
@@ -35,18 +70,17 @@
                           console.log("Popup triggered successfully.");
                       } else {
                           console.error("Failed to trigger popup.");
-                          popupTriggered = false; // Allow retries if popup fails
+                          popupTriggered = false;
                       }
                   }
               );
-              observer.unobserve(entry.target); // Cleanup observer for this field
+              observer.unobserve(entry.target);
           }
       });
   };
 
   const observer = new IntersectionObserver(handleIntersect, { threshold: 0.1 });
 
-  // Attach observer to all input fields
   document.querySelectorAll("input").forEach((input) => {
       if (isLikelyTOTPField(input)) {
           console.log("Observing potential TOTP field:", input);
@@ -55,7 +89,6 @@
   });
 
   // Listener for autofilling TOTP codes
-  // CEB start autofill
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       console.log("Received message in content.js:", message);
 
@@ -63,23 +96,17 @@
           const mfaCode = message.mfaCode.replace(/\s/g, "");
           console.log("Attempting to autofill TOTP code:", mfaCode);
 
-          const mfaField = document.getElementById("mfaCode") || // Prioritize exact ID match
-              Array.from(document.querySelectorAll("input[type='text'], input[type='password']"))
-                  .find(input => input.id === "mfaCode" || isLikelyTOTPField(input));
-
+          const mfaField = findInputField();
           if (mfaField) {
-              console.log("Detected MFA input field:", mfaField);
+              console.log("Using MFA input field:", mfaField);
               mfaField.value = mfaCode;
 
-              const submitButton = document.getElementById("mfa_submit_button") || 
-                  mfaField.closest("form")?.querySelector("[type='button']") ||
-                  mfaField.nextElementSibling;
-
+              const submitButton = findSubmitButton(mfaField);
               if (submitButton) {
                   console.log("Clicking submit button:", submitButton);
                   submitButton.click();
               } else {
-                  console.log("No submit button found, simulating Enter keypress.");
+                  console.log("No valid submit button found, simulating Enter keypress.");
                   const event = new KeyboardEvent("keydown", { key: "Enter", bubbles: true });
                   mfaField.dispatchEvent(event);
               }
@@ -92,5 +119,5 @@
           console.log("Message action not handled or missing mfaCode:", message);
       }
   });
-  // CEB end autofill
 })();
+
