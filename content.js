@@ -1,3 +1,4 @@
+
 (() => {
   const totpKeywords = ["auth", "token", "code", "totp", "6-digit", "otp"];
   const submitKeywords = ["submit", "verify", "confirm", "continue", "log in", "sign in"]; // Keywords for submit buttons
@@ -5,22 +6,32 @@
 
   // Helper function to determine if an input field matches TOTP criteria
   const isLikelyTOTPField = (input) => {
-      const attributes = [
-          input.name,
-          input.placeholder,
-          input.getAttribute("aria-label"),
-          input.id,
-          input.className,
-      ];
-      return (
-          input.tagName === "INPUT" &&
-          (input.type === "text" || input.type === "password") &&
-          attributes.some((attr) =>
-              totpKeywords.some((keyword) => attr && attr.toLowerCase().includes(keyword))
-          ) &&
-          input.maxLength === 6
-      );
+    const attributes = [
+        input.name,
+        input.placeholder,
+        input.getAttribute("aria-label"),
+        input.id,
+        input.className,
+    ];
+    const regex = /\b6[-\s]?digit\b/i; // Matches "6-digit", "6 digit", or similar variations
+
+    const matchesRegexOrKeywords = attributes.some((attr) =>
+        attr && (regex.test(attr) || totpKeywords.some((keyword) => attr.toLowerCase().includes(keyword)))
+    );
+
+    console.log("Inspecting input field:", input);
+    console.log("Attributes checked:", attributes);
+    console.log("Matches regex or keywords:", matchesRegexOrKeywords);
+    console.log("Max length is 6:", input.maxLength === 6);
+
+    return (
+        input.tagName === "INPUT" &&
+        (input.type === "text" || input.type === "password") &&
+        matchesRegexOrKeywords &&
+        input.maxLength === 6
+    );
   };
+
 
   // CEB start changes
   const findInputField = () => {

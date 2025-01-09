@@ -68,11 +68,15 @@ It has two components: [dor1an2FA iOs mobile app](https://github.com/ch4r1i3b/do
 
 14. You are in!
 
+## Known Limitations
+
+Please refer to dor1an2FA for (Known Limitations)[https://github.com/ch4r1i3b/dor1an2FA?tab=readme-ov-file#known-limitations]:
+
+
+
 ## License
 
 This project is made available under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-dor1an2FA is mainly based on Matt Rubin Authenticator under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 
 

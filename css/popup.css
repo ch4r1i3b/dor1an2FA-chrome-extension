@@ -54,6 +54,7 @@ body {
   width: 100%;
   margin-left: 0;
   height: 152px;
+  filter: blur(10px); /* Adjust the degree of blur here */
   border: 1px solid black; }
   .preview .img-preview {
     background-position: left;
